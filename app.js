@@ -1,15 +1,10 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const morgan = require('morgan');
-const moment = require('moment-timezone');
+const timeStamp = require('./timeStamp');
 
-morgan.token('date', (req, res, tz) => {
-  return moment().tz(tz).format('YYYY-MM-DD HH:mm:ss');
-})
-
-morgan.format('myformat', ':date[Asia/Taipei] | :method from :url');
-app.use(morgan('myformat'));
+app.get('/favicon.ico', (req, res) => res.status(204));
+app.use(timeStamp);
 
 // 列出全部 Todo
 app.get('/', (req, res) => {
